@@ -18,10 +18,12 @@ module Spawn
   # forked children to kill on exit
   @@punks = []
 
+  @@logger = defined?(Rails) ? Rails.logger : Logger.new(STDERR)
+
   # Make sure we have a logger and require our patches when we're included
   def self.included(klazz)
     # in some environments, logger isn't defined
-    @@logger = defined?(Rails) ? Rails.logger : Logger.new(STDERR)
+    #@@logger = defined?(Rails) ? Rails.logger : Logger.new(STDERR)
     require 'patches'
   end
 
