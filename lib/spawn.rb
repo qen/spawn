@@ -218,7 +218,7 @@ module Spawn
 
   def thread_it(options)
     # clean up stale connections from previous threads
-    ActiveRecord::Base.verify_active_connections!()
+    #ActiveRecord::Base.verify_active_connections!()
     thr = Thread.new do
       # run the long-running code block
       ActiveRecord::Base.connection_pool.with_connection { yield }
