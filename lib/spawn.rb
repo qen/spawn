@@ -1,8 +1,13 @@
+require 'logger'
+
 module Spawn
   if defined? Rails
     RAILS_1_x = (::Rails::VERSION::MAJOR == 1) unless defined?(RAILS_1_x)
     RAILS_2_2 = ((::Rails::VERSION::MAJOR == 2 && ::Rails::VERSION::MINOR >= 2)) unless defined?(RAILS_2_2)
     RAILS_3_x = (::Rails::VERSION::MAJOR > 2) unless defined?(RAILS_3_x)
+    @@logger  = Rails.logger
+  else
+    @@logger = Logger.new STDERR
   end
 
   @@default_options = {
@@ -18,8 +23,6 @@ module Spawn
 
   # forked children to kill on exit
   @@punks = []
-
-  @@logger = defined?(Rails) ? Rails.logger : Logger.new(STDERR)
 
   # Make sure we have a logger and require our patches when we're included
   def self.included(klazz)
