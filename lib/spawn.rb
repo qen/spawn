@@ -1,4 +1,3 @@
-require 'logger'
 
 module Spawn
   if defined? Rails
@@ -7,6 +6,7 @@ module Spawn
     RAILS_3_x = (::Rails::VERSION::MAJOR > 2) unless defined?(RAILS_3_x)
     @@logger  = Rails.logger
   else
+    require 'logger'
     @@logger = Logger.new STDERR
   end
 
